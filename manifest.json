@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Margin — Notes Abbreviator",
+  "version": "1.0.0",
+  "description": "Compress notes into student-style shorthand with toggleable dictionary add-ons. Premium unlocks unlimited active dictionaries and a right-click Abbreviate & Copy.",
+  "icons": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Margin",
+    "default_icon": { "16": "icons/icon16.png", "48": "icons/icon48.png", "128": "icons/icon128.png" }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://extensionpay.com/*"],
+      "js": ["ExtPay.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "https://extensionpay.com/*"
+  ]
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="popup.css">
+  <title>Margin</title>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span class="mark">m<em>argin</em></span><span class="slash">//</span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" type="button" data-view="notes">Notes</button>
+      <button class="tab" type="button" data-view="dict">Dictionary</button>
+    </nav>
+    <button class="btn upgrade" id="upgradeBtn" type="button">Upgrade ★</button>
+  </header>
+
+  <div id="tierBanner" class="tier-banner free"></div>
+
+  <!-- ===================== NOTES VIEW ===================== -->
+  <main class="view active" id="view-notes">
+    <div class="grid">
+      <section class="panel in">
+        <div class="panel-head"><span class="eyebrow"><span class="dot"></span>Original text</span></div>
+        <div class="sheet"><textarea id="input" class="surface" spellcheck="false" placeholder="Paste your notes…"></textarea></div>
+      </section>
+      <section class="panel out">
+        <div class="panel-head">
+          <span class="eyebrow"><span class="dot"></span>Shorthand</span>
+          <button class="btn" id="copy" type="button">Copy</button>
+        </div>
+        <div class="sheet"><div id="output" class="surface" role="textbox" aria-live="polite" aria-label="Shorthand notes"></div></div>
+      </section>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="num" id="s-in">0</span><span class="lab">In</span></div>
+      <div class="stat"><span class="num" id="s-out">0</span><span class="lab">Out</span></div>
+      <div class="stat save"><span class="num" id="s-saved">0</span><span class="lab">Saved</span></div>
+      <div class="stat"><span class="num" id="s-pct">0%</span><span class="lab">Tighter</span></div>
+    </div>
+
+    <button class="dict-link" type="button" data-view="dict" id="dictLink">
+      <span><span id="footRules">0</span> rules active · <span id="footPacks">0</span> dictionaries</span>
+      <span class="chev">Manage dictionaries →</span>
+    </button>
+  </main>
+
+  <!-- ===================== DICTIONARY VIEW ===================== -->
+  <main class="view" id="view-dict">
+    <section class="manager" id="manager">
+      <div class="mgr-head">
+        <div class="mgr-title"><h2>Dictionary Manager</h2><span class="count" id="activeCount"></span></div>
+        <div class="mgr-ctrl">
+          <label class="flag"><span class="switch"><input type="checkbox" id="flagCompress" data-action="flag" data-flag="compress"><span class="track"></span></span>Compress</label>
+          <label class="flag"><span class="switch"><input type="checkbox" id="flagProtect" data-action="flag" data-flag="protect"><span class="track"></span></span>Protect</label>
+          <button class="btn ghost" type="button" data-action="reset">Restore defaults</button>
+        </div>
+      </div>
+
+      <div class="mgr-grid">
+        <aside class="addons">
+          <h3>Dictionaries</h3>
+          <div class="addon-list" id="addonList"></div>
+		  <div class="newrow">
+			<input class="field" id="newAddonName" type="text" placeholder="New dictionary name…" maxlength="40" autocomplete="off">
+			<button class="btn" type="button" data-action="create">Add</button>
+		  </div>
+		  <div class="newrow">
+			<button class="btn ghost" type="button" data-action="import" style="flex:1">Import dictionary…</button>
+			<input type="file" id="importFile" accept="application/json,.json" hidden>
+		  </div>
+        </aside>
+
+        <div class="rules">
+			<div class="rules-top">
+			  <span class="sel-name" id="selName">—</span>
+			  <span style="display:flex;gap:6px;align-items:center;">
+				<span class="pill" id="selBadge">—</span>
+				<button class="btn ghost" type="button" data-action="export">Export</button>
+			  </span>
+			</div>
+
+          <div class="forms" id="forms">
+            <div>
+              <div class="formlabel">Add abbreviation</div>
+              <div class="formrow">
+                <input class="field grow" id="ruleTerm" type="text" placeholder="Word or phrase" autocomplete="off">
+                <span class="arrow">→</span>
+                <input class="field grow" id="ruleAbbr" type="text" placeholder="Abbr / symbol" autocomplete="off">
+                <button class="btn" type="button" data-action="add-rule">Save</button>
+              </div>
+            </div>
+            <div>
+              <div class="formlabel">Add removal (stripped from text)</div>
+              <div class="formrow">
+                <input class="field grow" id="removeTerm" type="text" placeholder="Filler word to delete" autocomplete="off">
+                <button class="btn" type="button" data-action="add-removal">Strip</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="readonly-note" id="readonlyNote" hidden>Built-in dictionary — read-only. Create your own to add rules.</div>
+          <div class="rule-list" id="ruleList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="ExtPay.js"></script>
+  <script src="engine.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
